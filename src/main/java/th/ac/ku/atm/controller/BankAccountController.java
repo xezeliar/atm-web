@@ -37,12 +37,26 @@ public class BankAccountController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editAccount(@PathVariable int id,
-                              @ModelAttribute BankAccount bankAccount,
-                              Model model) {
+    public String selectTransaction(@PathVariable int id, @ModelAttribute BankAccount bankAccount,
+                                    Model model, double inputAmount, String transactionType) {
 
-        bankAccountService.editBankAccount(bankAccount);
-        model.addAttribute("bankaccounts",bankAccountService.getBankAccounts());
+        BankAccount record = bankAccountService.getBankAccount(bankAccount.getId());
+        double curBal = record.getBalance();
+        if (transactionType.equals("deposit")) {
+            if(inputAmount <= 0){
+                return "redirect:/bankaccount";
+            }
+            record.setBalance(record.getBalance()+inputAmount);
+        }
+        else {
+            if(inputAmount > curBal || inputAmount <= 0){
+                return "redirect:/bankaccount";
+            }
+            record.setBalance(record.getBalance()-inputAmount);
+        }
+
+        bankAccountService.editBankAccount(record);
+        model.addAttribute("bankaccounts", bankAccountService.getBankAccounts());
         return "redirect:/bankaccount";
     }
 

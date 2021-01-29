@@ -31,25 +31,32 @@
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
-            <th>Id</th>
-            <th>CustomerId</th>
-            <th>Type</th>
-            <th>Balance</th>
-            <th>Actions</th>
+            <th style="text-align: center;">Id</th>
+            <th style="text-align: center;">CustomerId</th>
+            <th style="text-align: center;">Type</th>
+            <th style="text-align: center;">Balance</th>
+            <th style="text-align: center;">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="bankacc : ${allBankAccounts}">
-            <td th:text="${bankacc.id}"></td>
-            <td th:text="${bankacc.customerId}"></td>
-            <td th:text="${bankacc.type}"></td>
-            <td th:text="${bankacc.balance}"></td>
+            <td style="text-align: center;" th:text="${bankacc.id}"></td>
+            <td style="text-align: center;" th:text="${bankacc.customerId}"></td>
+            <td style="text-align: center;" th:text="${bankacc.type}"></td>
+            <td style="text-align: center;" th:text="${bankacc.balance}"></td>
             <td>
-                <a class="btn btn-primary"
-                   th:href="@{/bankaccount/edit/{id}(id=${bankacc.id})}">Edit</a>
-                <form th:action="@{/bankaccount/delete/{id}(id=${bankacc.id})}" method="POST">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
+                <div class="w3-show-inline-block">
+
+                    <div class="w3-bar" style="display: flex;justify-content: center;align-items: center;">
+                        <a style="width: 70px;margin-right:15px"class="btn btn-primary" th:href="@{/bankaccount/edit/{id}(id=${bankacc.id})}">Edit</a>
+                        <form th:action="@{/bankaccount/delete/{id}(id=${bankacc.id})}" method="POST">
+                            <button id="delete"type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+
+                    </div>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>
